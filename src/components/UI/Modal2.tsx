@@ -1,9 +1,9 @@
 import { MouseEventHandler, ReactNode, useState } from 'react'
 
-export default function Modal(props: {
+export default function Modal2(props: {
     children: ReactNode;
     onClose: MouseEventHandler<HTMLDivElement> | undefined;
-    isShow: string,
+    isShow: string | boolean,
     title: string,
 }) {
 
@@ -21,7 +21,7 @@ export default function Modal(props: {
                                 <img src="icons/close.svg" alt="" />
                             </div>
                             <div className='modal__head'>
-                                <div className="modal__coName">{props?.title}</div>
+                                <div className="delModTitle">Удаление организации</div>
                             </div>
                             {props.children}
                         </div>

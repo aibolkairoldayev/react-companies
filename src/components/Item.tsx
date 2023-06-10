@@ -25,13 +25,13 @@ function Item(props: {
                     className={s.edit}
                     onClick={props?.onEdit}
                 >
-                    <img src="edit.svg" alt="icon" />
+                    <img src="icons/edit.svg" alt="icon" />
                 </button>
                 <button className={s.drop}
                     onClick={props?.onDrop}
                 >
 
-                    <img src="drop.svg" alt="icon" />
+                    <img src="icons/drop.svg" alt="icon" />
                 </button>
             </div>
         </div>

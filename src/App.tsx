@@ -3,13 +3,15 @@ import axios from 'axios';
 import Skeleton from './components/Skeleton';
 import Item from './components/Item';
 import './App.scss';
-import Modal from './components/UI/Modal'
+import Modal from './components/UI/Modal';
+import Modal2 from './components/UI/Modal2'
 
 function App() {
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />)
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState<any[]>([]);
   const [editName, setEditName] = useState('');
+  const [dropModal, setDropModal] = useState(false);
   const fetchCompanies = async () => {
     setIsLoading(true)
     try {
@@ -45,7 +47,8 @@ function App() {
                   name={item.company_name}
                   bin={item.company_tin}
                   onEdit={() => setEditName(item.company_name)}
-                  onDrop={() => setItems(items.filter(el => el.company_id !== item.company_id))}
+                  // onDrop={() => setItems(items.filter(el => el.company_id !== item.company_id))}
+                  onDrop={() => setDropModal(true)}
                 />
               ))
             :
@@ -57,8 +60,13 @@ function App() {
         title={editName}
         onClose={() => setEditName('')}
       >
-        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, ducimus!</h3>
       </Modal>
+      <Modal2
+        isShow={dropModal}
+        title={editName}
+        onClose={() => setEditName('')}
+      >
+      </Modal2>
     </div>
 
   );
