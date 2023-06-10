@@ -1,4 +1,4 @@
-import {useState, useEffect, createContext} from 'react';
+import { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
 import Skeleton from './components/Skeleton';
 import Item from './components/Item';
@@ -13,40 +13,39 @@ function App() {
   const fetchCompanies = async () => {
     setIsLoading(true)
     try {
-        const { data } = await axios.get(`https://raw.githubusercontent.com/arkdich/mybuh-frontend-test/main/companies.json`)
-        setItems(data)
+      const { data } = await axios.get(`https://raw.githubusercontent.com/arkdich/mybuh-frontend-test/main/companies.json`)
+      setItems(data)
 
     } catch (error) {
 
-        console.log('error', error)
+      console.log('error', error)
     } finally {
-        setIsLoading(false)
+      setIsLoading(false)
     }
-}
+  }
 
-useEffect(() => {
+  useEffect(() => {
     fetchCompanies()
-}, [])
+  }, [])
 
-console.log(items)
   return (
-    <AppContext.Provider value={{items, setItems}} >
+    <AppContext.Provider value={{ items, setItems }} >
       <div className="App">
         <div className="title">Мои организации</div>
         <div className="companies">
-        {
-          !isLoading ?
-              items                              
-                  .map(item => (
-                      <Item key={item.company_id} logo={item.logo} name={item.company_name} bin={item.company_tin} />
-                  ))
+          {
+            !isLoading ?
+              items
+                .map(item => (
+                  <Item items={items} id={item.company_id} key={item.company_id} logo={item.logo} name={item.company_name} bin={item.company_tin} />
+                ))
               :
               skeletons
-        }
+          }
         </div>
       </div>
     </AppContext.Provider>
-   
+
   );
 }
 
