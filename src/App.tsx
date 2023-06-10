@@ -1,15 +1,15 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Skeleton from './components/Skeleton';
 import Item from './components/Item';
-import './App.css';
-
-export const AppContext = createContext({});
+import './App.scss';
+import Modal from './components/UI/Modal'
 
 function App() {
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />)
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState<any[]>([]);
+  const [editName, setEditName] = useState('');
   const fetchCompanies = async () => {
     setIsLoading(true)
     try {
@@ -20,7 +20,9 @@ function App() {
 
       console.log('error', error)
     } finally {
-      setIsLoading(false)
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 500)
     }
   }
 
@@ -29,22 +31,35 @@ function App() {
   }, [])
 
   return (
-    <AppContext.Provider value={{ items, setItems }} >
-      <div className="App">
-        <div className="title">Мои организации</div>
-        <div className="companies">
-          {
-            !isLoading ?
-              items
-                .map(item => (
-                  <Item items={items} id={item.company_id} key={item.company_id} logo={item.logo} name={item.company_name} bin={item.company_tin} />
-                ))
-              :
-              skeletons
-          }
-        </div>
+    <div className="App">
+      <div className="title">Мои организации</div>
+      <div className="companies">
+        {
+          !isLoading ?
+            items
+              .map(item => (
+                <Item
+                  id={item.company_id}
+                  key={item.company_id}
+                  logo={item.logo}
+                  name={item.company_name}
+                  bin={item.company_tin}
+                  onEdit={() => setEditName(item.company_name)}
+                  onDrop={() => setItems(items.filter(el => el.company_id !== item.company_id))}
+                />
+              ))
+            :
+            skeletons
+        }
       </div>
-    </AppContext.Provider>
+      <Modal
+        isShow={editName}
+        title={editName}
+        onClose={() => setEditName('')}
+      >
+        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, ducimus!</h3>
+      </Modal>
+    </div>
 
   );
 }

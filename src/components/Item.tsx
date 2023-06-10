@@ -1,11 +1,16 @@
-import React from 'react';
+import { MouseEventHandler } from 'react';
 import s from './Item.module.scss';
-import { AppContext } from "../App";
 
 
-function Item(props: { logo: string; name: string; bin: number; id: number; items: {}; setItems: any[] }) {
-    const list = React.useContext(AppContext);
-    console.log(items)
+function Item(props: {
+    logo: string;
+    name: string;
+    bin: number;
+    id: number;
+    onEdit?: MouseEventHandler<HTMLButtonElement> | undefined;
+    onDrop?: MouseEventHandler<HTMLButtonElement> | undefined;
+}) {
+
     return (
         <div className={s.item}>
             <div className={s.img}>
@@ -16,15 +21,16 @@ function Item(props: { logo: string; name: string; bin: number; id: number; item
                 <div className={s.bin}>{props.bin}</div>
             </div>
             <div className={s.buttons}>
-                <button className={s.edit}
-                    onClick={() => {
-
-                        // list.setItems(list.items.filter(obj => obj.company_id != props.id))
-                    }}
+                <button
+                    className={s.edit}
+                    onClick={props?.onEdit}
                 >
                     <img src="edit.svg" alt="icon" />
                 </button>
-                <button className={s.drop}>
+                <button className={s.drop}
+                    onClick={props?.onDrop}
+                >
+
                     <img src="drop.svg" alt="icon" />
                 </button>
             </div>
