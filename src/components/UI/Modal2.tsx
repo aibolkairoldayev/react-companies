@@ -4,7 +4,7 @@ export default function Modal2(props: {
     children: ReactNode;
     onClose: MouseEventHandler<HTMLDivElement> | undefined;
     isShow: string | boolean,
-    title: string,
+
 }) {
 
     return (
@@ -22,8 +22,17 @@ export default function Modal2(props: {
                             </div>
                             <div className='modal__head'>
                                 <div className="delModTitle">Удаление организации</div>
+
                             </div>
-                            {props.children}
+                            <div className="modal__body">
+                                <div className="del__text">
+                                    Вы уверены, что хотите удалить организацию из списка?
+                                </div>
+                                <div className="del__buttons">
+                                    <button className='cancel'>Отменить</button>
+                                    <button className="deleteBtn">Удалить</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     : ''

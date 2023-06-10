@@ -22,6 +22,7 @@ export default function Modal(props: {
                             </div>
                             <div className='modal__head'>
                                 <div className="modal__coName">{props?.title}</div>
+
                             </div>
                             {props.children}
                         </div>

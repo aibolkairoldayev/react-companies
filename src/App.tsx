@@ -49,6 +49,7 @@ function App() {
                   onEdit={() => setEditName(item.company_name)}
                   // onDrop={() => setItems(items.filter(el => el.company_id !== item.company_id))}
                   onDrop={() => setDropModal(true)}
+
                 />
               ))
             :
@@ -63,8 +64,7 @@ function App() {
       </Modal>
       <Modal2
         isShow={dropModal}
-        title={editName}
-        onClose={() => setEditName('')}
+        onClose={() => setDropModal(false)}
       >
       </Modal2>
     </div>
